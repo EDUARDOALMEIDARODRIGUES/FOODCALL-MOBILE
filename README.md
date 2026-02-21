@@ -5,12 +5,11 @@
    FoodCall-MOBILE é um projeto de aplicativo multiplataforma que tem como objetivo principal ser um glossário bilíngue (português-inglês) de colocações especializadas da área de alimentos, voltado para oferecer apoio pedagógico de alunos do ensino técnico e superior.
 
 ### RoadMaps:
-- [ ] Setup inicial do ambiente.
 - [ ] Protótipo da tela principal.
 - [ ] Conexão com o banco de dados.
 
 ### Contribuições:
-  O projeto ainda está em fase inicial de desenvolvimento, então apenas issues poderão ser aceitas no momento.
+  O projeto ainda está em fase inicial de desenvolvimento, mas sugestões serão aceitas por meio dos "Issues".
 
 ### Coloboradores:
 <table>
