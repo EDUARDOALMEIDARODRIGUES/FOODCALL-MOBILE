@@ -1,4 +1,4 @@
-# FoodCall-MOBILE
+# FoodColl-MOBILE
 [![Generic badge](https://img.shields.io/badge/Status-Desenvolvimento-<COLOR>.svg)](https://shields.io/)
 
 ### Sobre:
