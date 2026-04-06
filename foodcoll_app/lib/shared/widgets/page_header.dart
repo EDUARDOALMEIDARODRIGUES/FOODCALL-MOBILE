@@ -7,11 +7,8 @@ class PageHeader extends StatelessWidget {
   final String title;
   final VoidCallback? onBack;
 
-  const PageHeader({
-    Key? key,
-    required this.title,
-    this.onBack,
-  }) : super(key: key);
+  const PageHeader({Key? key, required this.title, this.onBack})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +19,14 @@ class PageHeader extends StatelessWidget {
         // Ícone de voltar (exibido apenas se onBack não for nulo)
         if (onBack != null)
           GestureDetector(
-            onTap: onBack,
-            child: const Icon(
-              Icons.arrow_back,
-              size: 24,
-            ),
+            onTap:
+                onBack ??
+                () {
+                  if (Navigator.canPop(context)) {
+                    Navigator.pop(context);
+                  }
+                },
+            child: const Icon(Icons.arrow_back, size: 24),
           ),
 
         // Espaçamento entre a seta e o título
