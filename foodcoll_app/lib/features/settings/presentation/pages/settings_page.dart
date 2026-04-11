@@ -8,7 +8,6 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BasePage(
-    
       title: 'Configurações',
       currentIndex: 3,
       body: Column(
@@ -35,7 +34,6 @@ class SettingsPage extends StatelessWidget {
                 leading: Icon(Icons.format_size, color: Color(0xFF1FA7A6)),
                 title: Center(child: Text("Tamanho da fonte")),
                 trailing: DropdownButton<String>(
-                  //Personalizar o dropdownbutton
                   icon: Icon(
                     Icons.keyboard_arrow_down_sharp,
                     color: Color(0xFFA8D5D4),
