@@ -8,7 +8,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BasePage(
-      //tirei o const, tava dando erro no onBack
+    
       title: 'Configurações',
       currentIndex: 3,
       body: Column(
