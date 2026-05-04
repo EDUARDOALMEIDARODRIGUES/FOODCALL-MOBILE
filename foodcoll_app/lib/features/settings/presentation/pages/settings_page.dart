@@ -20,7 +20,8 @@ class SettingsPage extends StatelessWidget {
             children: [
               SwitchListTile(
                 secondary: Icon(Icons.dark_mode, color: Color(0xFF1FA7A6)),
-                title: Center(child: Text("Modo Escuro")),
+                minLeadingWidth: 60,
+                title: Text("Modo Escuro"),
                 value: false,
                 onChanged: (bool value) => {},
                 inactiveTrackColor: Color(0xFFA8D5D4),
@@ -32,7 +33,8 @@ class SettingsPage extends StatelessWidget {
               Divider(color: Color(0xFFA8D5D4), thickness: 2),
               ListTile(
                 leading: Icon(Icons.format_size, color: Color(0xFF1FA7A6)),
-                title: Center(child: Text("Tamanho da fonte")),
+                minLeadingWidth: 60,
+                title: Text("Tamanho da fonte"),
                 trailing: DropdownButton<String>(
                   icon: Icon(
                     Icons.keyboard_arrow_down_sharp,
@@ -47,12 +49,14 @@ class SettingsPage extends StatelessWidget {
               Divider(color: Color(0xFFA8D5D4), thickness: 2),
               ListTile(
                 leading: Icon(Icons.info, color: Color(0xFF1FA7A6)),
-                title: Center(child: Text("Sobre o App")),
+                minLeadingWidth: 60,
+                title: Text("Sobre o App"),
               ),
               Divider(color: Color(0xFFA8D5D4), thickness: 2),
               ListTile(
                 leading: Icon(Icons.logout, color: Color(0xFF1FA7A6)),
-                title: Center(child: Text("Sair")),
+                minLeadingWidth: 60,
+                title: Text("Sair"),
               ),
             ],
           ),
