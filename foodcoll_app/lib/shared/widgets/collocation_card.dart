@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 
 /// Utilizado nas telas de busca, favoritos e glossário.
 class CollocationCard extends StatelessWidget {
+  String _capitalize(String text) {
+    if (text.isEmpty) return text;
+    return text[0].toUpperCase() + text.substring(1);
+  }
+  
   final String collocation;
   final String translation;
   final bool isFavorited;
@@ -35,7 +40,7 @@ class CollocationCard extends StatelessWidget {
                   children: [
                     // Nome da collocation
                     Text(
-                      collocation,
+                      _capitalize(collocation),
                       style: const TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 16,
@@ -49,7 +54,7 @@ class CollocationCard extends StatelessWidget {
 
                     // Tradução da collocation
                     Text(
-                      translation,
+                      _capitalize(translation),
                       style: const TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 14,
