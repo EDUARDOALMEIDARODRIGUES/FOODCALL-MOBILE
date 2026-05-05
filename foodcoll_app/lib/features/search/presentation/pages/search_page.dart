@@ -1,40 +1,77 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/base_page.dart';
-import '../../../../shared/widgets/app_dialog.dart';
+import '../../../../core/state/favorites_controller.dart';
+import '../../../../shared/widgets/collocation_list.dart';
+import '../../data/search_service.dart';
 import '../widgets/search_input.dart';
 import '../widgets/suggestion_button.dart';
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
 
-  void _showSuggestionDialog(BuildContext context) {
-    final TextEditingController controller = TextEditingController();
+  @override
+  State<SearchPage> createState() => _SearchPageState();
+}
 
-    showDialog(
-      context: context,
-      builder: (dialogContext) {
-        return AppDialog(
-          title: 'Enviar sugestão',
-          hintText: 'Digite uma collocation',
-          controller: controller,
-          confirmText: 'Enviar',
-          cancelText: 'Cancelar',
-          onConfirm: () {
-            final suggestion = controller.text.trim();
+class _SearchPageState extends State<SearchPage> {
+  final _searchController = TextEditingController();
+  final _searchService = SearchService();
 
-            if (suggestion.isEmpty) {
-              debugPrint('Nenhuma sugestão informada');
-              return;
-            }
+  List<String> _resultados = [];
+  bool _isLoading = false;
+  String? _erro;
 
-            debugPrint(
-              'Um usuário sugeriu uma nova colocação: "$suggestion"',
-            );
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
-            Navigator.of(dialogContext).pop();
-          },
-        );
-      },
+  Future<void> _buscar(String query) async {
+    if (query.trim().isEmpty) {
+      setState(() {
+        _resultados = [];
+        _erro = null;
+      });
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+      _erro = null;
+    });
+
+    try {
+      final resultados = await _searchService.buscar(query);
+      setState(() => _resultados = resultados);
+    } catch (e) {
+      setState(() {
+        _resultados = [];
+        _erro = 'Não foi possível conectar ao servidor.';
+      });
+      debugPrint('Erro ao buscar: $e');
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }
+
+  Widget _buildBody() {
+    if (_isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (_erro != null) {
+      return Center(child: Text(_erro!, style: const TextStyle(color: Colors.red)));
+    }
+
+    return AnimatedBuilder(
+      animation: FavoritesController.instance,
+      builder: (context, _) => CollocationList(
+        collocations: _resultados,
+        isFavorited: FavoritesController.instance.isFavorite,
+        onFavoriteToggle: FavoritesController.instance.toggleFavorite,
+      ),
     );
   }
 
@@ -44,19 +81,13 @@ class SearchPage extends StatelessWidget {
       title: 'Buscar',
       currentIndex: 1,
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SearchInput(
-            onChanged: (value) {
-              debugPrint('Busca: $value');
-            },
-          ),
-          SuggestionButton(
-            onPressed: () {
-              _showSuggestionDialog(context);
-            },
-          ),
+          SearchInput(controller: _searchController, onChanged: _buscar),
+          const SizedBox(height: 16),
+          Expanded(child: _buildBody()),
+          const SizedBox(height: 16),
+          const SuggestionButton(),
         ],
       ),
     );
