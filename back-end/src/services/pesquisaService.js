@@ -1,4 +1,4 @@
-import { pesquisaDBC } from "../models/seachModel.js";
+import { pesquisaDBC } from "../models/pesquisaModel.js";
 import { insererirHistoricoDB } from "../models/historicoModel.js";
 import { mostrarHistorico } from "../models/historicoModel.js";
 import { conecta, fecha } from "../config/db.js";
