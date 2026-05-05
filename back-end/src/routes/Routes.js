@@ -1,5 +1,5 @@
 import express from "express";
-import { pesquisa } from "../controllers/seachController.js";
+import { pesquisa } from "../controllers/pesquisaController.js";
 import { favorito } from "../controllers/favoritoController.js";
 
 const router= express.Router();
