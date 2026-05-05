@@ -1,5 +1,5 @@
 //importação
-import { validaPesquisa } from "../services/seachService.js";
+import { validaPesquisa } from "../services/pesquisaService.js";
 
 export async function pesquisa(req, res, next) {
   try{
