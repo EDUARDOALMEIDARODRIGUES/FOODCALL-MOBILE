@@ -31,8 +31,10 @@ class CollocationList extends StatelessWidget {
       );
     }
 
+    final sorted = [...collocations]..sort();
+
     return ListView.builder(
-      itemCount: collocations.length,
+      itemCount: sorted.length,
       itemBuilder: (context, index) {
         final collocation = collocations[index];
 
