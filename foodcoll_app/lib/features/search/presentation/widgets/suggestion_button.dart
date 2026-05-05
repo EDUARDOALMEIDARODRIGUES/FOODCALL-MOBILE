@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
+import '../../../../shared/widgets/app_dialog.dart';
 
-/// Botão utilizado na página de busca para enviar sugestões de collocations
 class SuggestionButton extends StatelessWidget {
-  final VoidCallback? onPressed;
+  const SuggestionButton({super.key});
 
-  const SuggestionButton({
-    Key? key,
-    this.onPressed,
-  }) : super(key: key);
+  void _showDialog(BuildContext context) {
+    final controller = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AppDialog(
+        title: 'Enviar sugestão',
+        hintText: 'Digite uma collocation',
+        controller: controller,
+        confirmText: 'Enviar',
+        cancelText: 'Cancelar',
+        onConfirm: () {
+          final suggestion = controller.text.trim();
+          if (suggestion.isEmpty) return;
+          debugPrint('Sugestão enviada: "$suggestion"');
+          Navigator.of(dialogContext).pop();
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +32,7 @@ class SuggestionButton extends StatelessWidget {
         width: double.infinity,
         height: 48,
         child: ElevatedButton(
-          onPressed: onPressed,
+          onPressed: () => _showDialog(context),
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFE9EEF0),
             foregroundColor: const Color(0xFF4A4F55),
@@ -28,11 +43,7 @@ class SuggestionButton extends StatelessWidget {
           ),
           child: const Text(
             'Enviar sugestão de colocação',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'Inter',
-              fontSize: 16,
-            ),
+            style: TextStyle(fontFamily: 'Inter', fontSize: 16),
           ),
         ),
       ),
