@@ -8,6 +8,7 @@ class BasePage extends StatefulWidget {
   final String title;
   final int currentIndex;
   final Function(int)? onTabChanged;
+  final bool showBottomNavigation;
 
   const BasePage({
     Key? key,
@@ -15,6 +16,7 @@ class BasePage extends StatefulWidget {
     required this.title,
     this.currentIndex = 0,
     this.onTabChanged,
+    this.showBottomNavigation = true,
   }) : super(key: key);
 
   @override
@@ -89,7 +91,8 @@ class _BasePageState extends State<BasePage> {
       ),
 
       // Barra de navegação inferior padrão
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: widget.showBottomNavigation
+    ? BottomNavigationBar(
         backgroundColor: Colors.white,
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
@@ -113,7 +116,8 @@ class _BasePageState extends State<BasePage> {
           _buildNavItem(Icons.star, 'Favoritos'),
           _buildNavItem(Icons.settings, 'Configurações'),
         ],
-      ),
+      )
+    : null,
     );
   }
 }
